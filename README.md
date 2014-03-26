@@ -4,7 +4,7 @@ Method override as a function utility.
 
 ```js
 var parse = require('co-body')
-var override = require('koa-method-override')
+var override = require('koa-override-method')
 
 app.use(function* () {
   var body = yield parse(this)

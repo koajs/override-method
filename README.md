@@ -1,29 +1,56 @@
 # Koa Override Method
 
-Method override as a function utility.
+[![NPM version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
+[![Gittip][gittip-image]][gittip-url]
+[![David deps][david-image]][david-url]
+[![node version][node-image]][node-url]
+[![npm download][download-image]][download-url]
+
+[npm-image]: https://img.shields.io/npm/v/koa-override-method.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/koa-override-method
+[travis-image]: https://img.shields.io/travis/koajs/override-method.svg?style=flat-square
+[travis-url]: https://travis-ci.org/koajs/override-method
+[coveralls-image]: https://img.shields.io/coveralls/koajs/override-method.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/koajs/override-method?branch=master
+[gittip-image]: https://img.shields.io/gittip/jonathanong.svg?style=flat-square
+[gittip-url]: https://www.gittip.com/jonathanong/
+[david-image]: https://img.shields.io/david/koajs/override-method.svg?style=flat-square
+[david-url]: https://david-dm.org/koajs/override-method
+[node-image]: https://img.shields.io/badge/node.js-%3E=_0.11-green.svg?style=flat-square
+[node-url]: http://nodejs.org/download/
+[download-image]: https://img.shields.io/npm/dm/koa-override-method.svg?style=flat-square
+[download-url]: https://npmjs.org/package/koa-override-method
+
+Method override middleware.
+Let you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it.
+
+## Install
+
+```bash
+$ npm install koa-override-method
+```
+
+## Usage
 
 ```js
-var parse = require('co-body')
+var bodyParser = require('koa-body-parser')
 var override = require('koa-override-method')
 
-app.use(function* () {
-  var body = yield parse(this)
-  var method = override.call(this, body)
-
-  switch (method) {
-    case 'PUT':
-      // ...
-  }
-})
+app.use(bodyParser())
+app.use(override())
 ```
 
 ## API
 
-### var method = override.call(this, [body])
+### var mw = override()
 
-You must call the function with the koa `this` parameter. `body` is optional. `X-HTTP-Method-Override` is checked as well as the optional body.
+If `body` exists, check `body._method` first.
+Otherwise check `X-HTTP-Method-Override` header.
 
-`method` is the uppercased method. If there is no override parameter, then it's simply `this.request.method`. You shouldn't use this unless you know you're using override.
+If there is no override parameter, then it's simply `this.request.method`.
+You shouldn't use this unless you know you're using override.
 
 ## License
 

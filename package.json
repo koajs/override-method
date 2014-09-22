@@ -8,6 +8,11 @@
     "url": "http://jongleberry.com",
     "twitter": "https://twitter.com/jongleberry"
   },
+  "scripts": {
+    "test": "mocha --harmony --check-leaks -R spec -t 5000 test/*.test.js",
+    "test-cov": "node --harmony node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- --check-leaks -t 5000 test/*.test.js",
+    "test-travis": "node --harmony node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcovonly -- --check-leaks -t 5000 test/*.test.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/koajs/override-method.git"
@@ -17,7 +22,14 @@
     "email": "me@jongleberry.com"
   },
   "dependencies": {
-    "methods": "*"
+    "methods": "~1.1.0"
+  },
+  "devDependencies": {
+    "istanbul-harmony": "*",
+    "koa": "~0.11.0",
+    "koa-body-parser": "~1.1.0",
+    "mocha": "*",
+    "supertest": "~0.13.0"
   },
   "engines": {
     "node": ">= 0.11.12"
